@@ -16,4 +16,6 @@ by plugging the keyboard in while holding the bootloader key. If you did this
 correctly the LEDs will blink and you'll be able to flash your firmware.
 The bootloader key is `L_Ctrl` for this board (bottom left key of the keyboard).
 
+The source code of bootloadHID could be downloaded from https://github.com/whiteneon/bootloadHID .
+
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
