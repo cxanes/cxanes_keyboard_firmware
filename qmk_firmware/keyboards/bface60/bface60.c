@@ -48,24 +48,32 @@ void rgblight_set(void) {
 }
 #endif
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
-
-void backlight_init_ports(void) {
-    DDRD |= CAPSLOCK_LED;
+static inline void capslock_led_off(void) {
     PORTD |= CAPSLOCK_LED;
 }
 
-void backlight_set(uint8_t level) {
+static inline void capslock_led_on(void) {
+    PORTD &= ~CAPSLOCK_LED;
 }
 
-// @Override
+static inline void capslock_led_init(void) {
+    DDRD |= CAPSLOCK_LED;
+    capslock_led_off();
+}
+
+void matrix_init_kb(void) {
+    capslock_led_init();
+
+    matrix_init_user();
+}
+
 // turn LEDs on and off depending on USB caps/num/scroll lock states.
-void led_set_user(uint8_t usb_led) {
+void led_set_kb(uint8_t usb_led) {
     if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
         PORTD |= CAPSLOCK_LED;
     } else {
         PORTD &= ~CAPSLOCK_LED;
     }
+
+    led_set_user(usb_led);
 }
