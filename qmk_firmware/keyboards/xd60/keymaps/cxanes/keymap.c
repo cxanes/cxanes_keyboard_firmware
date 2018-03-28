@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // 0: Base Layer
   [_BL] = KEYMAP(
-    F(0),                  KC_1,    KC_2,    KC_3,    KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,    KC_MINS,  KC_EQL,                KC_BSPC,  KC_NO, \
+    F(0),                  KC_1,    KC_2,    KC_3,    KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,    KC_MINS,  KC_EQL,                F(3),     KC_NO, \
     MT(MOD_LCTL, KC_TAB),  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  MT(MOD_RALT, KC_RBRC), KC_BSLS,         \
     F(1),                  KC_A,    KC_S,    KC_D,    KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,  KC_NO,                 KC_ENT,          \
     KC_LSFT,               KC_NO,   KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_NO,                 KC_RSFT,  KC_NO, \
@@ -48,6 +48,7 @@ enum function_id {
     SHIFT_ESC,
     ACTION_FN,
     ARROW_LAYER_TOGGLE,
+    CTRL_ALT_DEL,
 };
 
 // Custom Actions
@@ -55,6 +56,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_FUNCTION(SHIFT_ESC),
     [1] = ACTION_FUNCTION(ACTION_FN),
     [2] = ACTION_FUNCTION(ARROW_LAYER_TOGGLE),
+    [3] = ACTION_FUNCTION(CTRL_ALT_DEL),
 };
 
 // Macros
@@ -77,10 +79,12 @@ void matrix_scan_user(void) {
 };
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_ALT_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_LALT))
 #define AL_MASK (1UL << _AL)
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   static uint8_t shift_esc_shift_mask;
+  static uint8_t ctrl_alt_del_ctrl_alt_mask;
   switch (id) {
     // Shift + ESC = ~
     case SHIFT_ESC:
@@ -124,6 +128,27 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
               layer_off(_AL);
           else
               layer_on(_AL);
+      }
+      break;
+
+    case CTRL_ALT_DEL:
+      ctrl_alt_del_ctrl_alt_mask = get_mods()&MODS_CTRL_ALT_MASK;
+      if (record->event.pressed) {
+        if (ctrl_alt_del_ctrl_alt_mask == MODS_CTRL_ALT_MASK) {
+          add_key(KC_DEL);
+          send_keyboard_report();
+        } else {
+          add_key(KC_BSPACE);
+          send_keyboard_report();
+        }
+      } else {
+        if (ctrl_alt_del_ctrl_alt_mask == MODS_CTRL_ALT_MASK) {
+          del_key(KC_DEL);
+          send_keyboard_report();
+        } else {
+          del_key(KC_BSPACE);
+          send_keyboard_report();
+        }
       }
       break;
   }
