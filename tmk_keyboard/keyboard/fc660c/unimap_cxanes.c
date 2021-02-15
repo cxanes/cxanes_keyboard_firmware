@@ -29,7 +29,7 @@ const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] __attribute__ ((section ("
 const action_t actionmaps[][UNIMAP_ROWS][UNIMAP_COLS] PROGMEM = {
 #endif
     [0] = KMAP(
-        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS,
+        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     GRV,
         CTAB,Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,ABRC,BSLS,     DEL,
         L2,  A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,
         LS_1,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RS_1,UP_,
