@@ -28,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // 0: Base Layer
     [_BL] = LAYOUT_tkl_ansi(
         KC_ESC,                         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,                KC_F12,    KC_PSCR, KC_SLCK, KC_PAUS,
-        F(0),                  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,                F(3),      KC_INS,  KC_HOME, KC_PGUP,
+        KC_GESC,               KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,                F(2),      KC_INS,  KC_HOME, KC_PGUP,
         MT(MOD_LCTL, KC_TAB),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, MT(MOD_RALT, KC_RBRC), KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN,
-        F(1),                  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,                        KC_ENT,
+        F(0),                  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,                        KC_ENT,
         KC_LSFT,                        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,                        KC_RSFT,             KC_UP,
-        MO(_ML),               KC_LCTL, KC_LALT,                            KC_SPC,                             F(1),    KC_RCTL, KC_RALT,               KC_RGUI,   KC_LEFT, KC_DOWN, KC_RGHT
+        MO(_ML),               KC_LCTL, KC_LALT,                            KC_SPC,                             F(0),    KC_RCTL, KC_RALT,               KC_RGUI,   KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     // 1: Function Layer
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, RESET,
         KC_TRNS, BL_TOGG, BL_STEP, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_WH_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_TRNS, KC_TRNS,          F(2),
+        KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_TRNS, KC_TRNS,          F(1),
         KC_TRNS,          KC_TRNS, KC_BTN3, KC_WH_D, KC_TRNS, KC_TRNS, KC_WH_D, KC_BTN3, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,            KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS
     ),
@@ -68,7 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 enum function_id {
-    SHIFT_ESC,
     ACTION_FN,
     ARROW_LAYER_TOGGLE,
     CTRL_ALT_DEL,
@@ -76,10 +75,9 @@ enum function_id {
 
 // Custom Actions
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_FUNCTION(SHIFT_ESC),
-    [1] = ACTION_FUNCTION(ACTION_FN),
-    [2] = ACTION_FUNCTION(ARROW_LAYER_TOGGLE),
-    [3] = ACTION_FUNCTION(CTRL_ALT_DEL),
+    [0] = ACTION_FUNCTION(ACTION_FN),
+    [1] = ACTION_FUNCTION(ARROW_LAYER_TOGGLE),
+    [2] = ACTION_FUNCTION(CTRL_ALT_DEL),
 };
 
 // Macros
@@ -101,31 +99,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 #define AL_MASK (1UL << _AL)
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t shift_esc_shift_mask;
   static uint8_t ctrl_alt_del_ctrl_alt_mask;
   switch (id) {
-    // Shift + ESC = ~
-    case SHIFT_ESC:
-      shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
-      if (record->event.pressed) {
-        if (shift_esc_shift_mask) {
-          add_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          add_key(KC_ESC);
-          send_keyboard_report();
-        }
-      } else {
-        if (shift_esc_shift_mask) {
-          del_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          del_key(KC_ESC);
-          send_keyboard_report();
-        }
-      }
-      break;
-
    case ACTION_FN:
       if ((layer_state ^ AL_MASK) & AL_MASK) {
           layer_on(_AL);
