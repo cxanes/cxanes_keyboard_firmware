@@ -39,47 +39,18 @@
 #endif
 
 #ifdef KEYMAP_SECTION_ENABLE
-const uint8_t keymaps[KEYMAPS_COUNT][MATRIX_SIZE] __attribute__ ((section (".keymap.keymaps"))) = {
+
+ const uint8_t keymaps[KEYMAPS_COUNT][MATRIX_SIZE] __attribute__ ((section (".keymap.keymaps"))) = {/media/data/frank/keyboard/keyboards/qmk_firmware/B
 #else
 const uint8_t keymaps[][MATRIX_SIZE] PROGMEM = {
 #endif
-#if 0
-    [0] = KEYMAP_XD84(
-        ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, PSCR,INS,  \
-        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,HOME, \
-        FN4, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,FN5, BSLS,PGUP, \
-        FN2, A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT, PGDN, \
-        FN0,      Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN1, UP,  END,  \
-        FN6, LCTL,LALT,          SPC, DEL,      RGUI,     FN2, RCTL,LEFT,DOWN,RGHT),
-    [1] = KEYMAP_XD84(
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        GRV, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TAB, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,RBRC,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS,TRNS, \
-        TRNS,     TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,TRNS,     TRNS,     TRNS,TRNS,TRNS,TRNS,TRNS),
-    [2] = KEYMAP_XD84(
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, TRNS, \
-        CAPS,PGUP,UP,  PGDN,TRNS,TRNS,CALC,PGUP,HOME,PGDN,PSCR,SLCK,PAUS,INS, TRNS, \
-        TRNS,LEFT,DOWN,RGHT,HOME,INS, LEFT,DOWN,UP,  RGHT,BSPC,DEL,      TRNS,TRNS, \
-        TRNS,     APP, TRNS,END, FN3, TRNS,END, HOME,PGUP,PGDN,END, TRNS,PGUP,TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,TRNS,     TRNS,     TRNS,TRNS,HOME,PGDN,END),
-    [3] = KEYMAP_XD84(
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FN12,FN11,FN10,FN9, FN7,  \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,BTN1,MS_U,BTN2,NO,  NO,  NO,  BTN1,WH_U,BTN2,NO,  NO,  TRNS,TRNS,TRNS, \
-        TRNS,MS_L,MS_D,MS_R,WH_U,NO,  MS_L,MS_D,MS_U,MS_R,TRNS,TRNS,     TRNS,TRNS, \
-        TRNS,     TRNS,BTN3,WH_D,NO,  NO,  WH_D,BTN3,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,FN8,      TRNS,     TRNS,TRNS,TRNS,TRNS,TRNS),
-#else
     [0] = KEYMAP_XD84(
         ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, PSCR,HOME, \
         ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,PGUP, \
-        FN4, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,FN5, BSLS,PGDN, \
-        FN2, A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT, END,  \
+        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,FN5, BSLS,PGDN, \
+        CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT, END,  \
         FN0,      Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN1, UP,  RGUI, \
-        FN6, LCTL,LALT,          SPC, DEL,      RCTL,     FN2,      LEFT,DOWN,RGHT),
+        LGUI,LCTL,FN2,           SPC, DEL,      RALT,     FN2,      LEFT,DOWN,RGHT),
     [1] = KEYMAP_XD84(
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         GRV, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
@@ -90,18 +61,10 @@ const uint8_t keymaps[][MATRIX_SIZE] PROGMEM = {
     [2] = KEYMAP_XD84(
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,BTLD, \
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, TRNS, \
-        CAPS,PGUP,UP,  PGDN,TRNS,TRNS,CALC,PGUP,HOME,PGDN,PSCR,SLCK,PAUS,INS, TRNS, \
-        TRNS,LEFT,DOWN,RGHT,HOME,INS, LEFT,DOWN,UP,  RGHT,BSPC,DEL,      TRNS,TRNS, \
-        TRNS,     APP, TRNS,END, FN3, TRNS,END, HOME,PGUP,PGDN,END, TRNS,PGUP,TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,INS,      TRNS,     TRNS,     HOME,PGDN,END),
-    [3] = KEYMAP_XD84(
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FN12,FN11,FN10,FN9, FN7,  \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,BTN1,MS_U,BTN2,NO,  NO,  NO,  BTN1,WH_U,BTN2,NO,  NO,  TRNS,TRNS,TRNS, \
-        TRNS,MS_L,MS_D,MS_R,WH_U,NO,  MS_L,MS_D,MS_U,MS_R,TRNS,TRNS,     TRNS,TRNS, \
-        TRNS,     TRNS,BTN3,WH_D,NO,  NO,  WH_D,BTN3,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,FN8,      TRNS,     TRNS,     TRNS,TRNS,TRNS),
-#endif
+        TRNS,TRNS,TRNS,END, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,UP,  PGUP,PGDN,TRNS,TRNS, \
+        TRNS,TRNS,PSCR,DEL, TRNS,TRNS,HOME,TRNS,TRNS,LEFT,DOWN,RGHT,     TRNS,TRNS, \
+        TRNS,     TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PGUP,TRNS, \
+        TRNS,TRNS,TRNS,          TRNS,TRNS,     TRNS,     TRNS,     HOME,PGDN,END),
 };
 
 #ifndef NO_ACTION_FUNCTION
